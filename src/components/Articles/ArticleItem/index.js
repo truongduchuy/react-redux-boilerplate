@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './index.scss';
+import PropTypes from 'prop-types';
 
 function ArticleItem({ article }) {
   const { id, image, title, content } = article;
@@ -24,5 +25,14 @@ function ArticleItem({ article }) {
     </li>
   );
 }
+
+ArticleItem.propTypes = {
+  article: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+  }).isRequired,
+};
 
 export default ArticleItem;

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
-function PaginationBox({ onPageIndexChanged, pageIndexs, currentPageIndex, hasNext, hasPrev, maxPage }) {
+function PaginationBox({ onPageIndexChanged, pageIndexs, currentPageIndex, hasNext, hasPrev, totalPages }) {
   const handleChange = (event, pageIndex, isClickedNumberButton = false) => {
     if (pageIndex === currentPageIndex) return;
 
@@ -16,11 +17,11 @@ function PaginationBox({ onPageIndexChanged, pageIndexs, currentPageIndex, hasNe
     handleChange(event, currentPageIndex - 1);
   };
 
-  const isDisablePrev = useMemo(() => !hasPrev || pageIndexs[0] === 1, [hasPrev]);
-  const isDisableNext = useMemo(() => !hasNext || pageIndexs[2] === maxPage, [hasNext]);
+  const isDisablePrev = useMemo(() => !hasPrev || pageIndexs[0] === 1, [hasPrev, pageIndexs]);
+  const isDisableNext = useMemo(() => !hasNext || pageIndexs[2] === totalPages, [hasNext, pageIndexs]);
 
   const activeNumberClass = pageIndex => (pageIndex === currentPageIndex ? 'active' : '');
-  const disabledNumberClass = pageIndex => (pageIndex > maxPage ? 'disabled' : '');
+  const disabledNumberClass = pageIndex => (pageIndex > totalPages ? 'disabled' : '');
 
   return (
     <nav aria-label="navigation">
@@ -50,5 +51,14 @@ function PaginationBox({ onPageIndexChanged, pageIndexs, currentPageIndex, hasNe
     </nav>
   );
 }
+
+PaginationBox.propTypes = {
+  currentPageIndex: PropTypes.number.isRequired,
+  pageIndexs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  hasNext: PropTypes.bool.isRequired,
+  hasPrev: PropTypes.bool.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageIndexChanged: PropTypes.func.isRequired,
+};
 
 export default PaginationBox;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Search } from 'react-bootstrap-icons';
 
 function SearchInput({ value, onChange }) {
@@ -13,5 +14,10 @@ function SearchInput({ value, onChange }) {
     </div>
   );
 }
+
+SearchInput.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
 
 export default SearchInput;

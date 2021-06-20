@@ -22,7 +22,7 @@ function Articles() {
   const { articles, isFetchingArticles, totalRecords } = articleState;
 
   // this is hard code. Cuz, API doesn't return totalRecords
-  const maxPage = Math.ceil((totalRecords || 53) / PAGE_LIMIT);
+  const totalPages = Math.ceil((totalRecords || 53) / PAGE_LIMIT);
 
   // this is to prevent delay for first render
   const isFirstRender = useRef(true);
@@ -82,9 +82,9 @@ function Articles() {
           <PaginationBox
             onPageIndexChanged={handlePageChanged}
             currentPageIndex={page}
-            hasNext={page < maxPage}
+            hasNext={page < totalPages}
             hasPrev={page > 1}
-            maxPage={maxPage}
+            totalPages={totalPages}
             pageIndexs={pageIndexs}
           />
         </div>

@@ -20,7 +20,6 @@
       "eslint linebreak-style": [0, "error", "windows"],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/jsx-one-expression-per-line": 0,
-      "react/prop-types": 0,
       "react/jsx-props-no-spreading": 0,
       "react/jsx-curly-newline": 0,
       "react/no-array-index-key": 0,
