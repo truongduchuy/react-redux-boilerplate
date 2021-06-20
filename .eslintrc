@@ -24,7 +24,8 @@
       "react/jsx-props-no-spreading": 0,
       "react/jsx-curly-newline": 0,
       "react/no-array-index-key": 0,
-      "no-unused-vars": "warn"
+      "no-unused-vars": "warn",
+      "jsx-a11y/no-noninteractive-element-interactions": 0
     },
     "env": {
       "jest": true

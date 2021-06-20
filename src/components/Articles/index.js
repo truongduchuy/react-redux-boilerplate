@@ -6,7 +6,7 @@ import useDebounce from 'hooks/useDebounce';
 import { FETCH_ARTICLES_REQUEST, PAGE_LIMIT } from './reducer';
 import './index.scss';
 import ArticleItem from './ArticleItem';
-import SearchInput from './ArticleItem/SearchInput';
+import SearchInput from './SearchInput';
 import PaginationBox from './PaginationBox';
 
 const MILISECONDS_TO_DELAY = 500;
@@ -20,9 +20,11 @@ function Articles() {
   const [pageIndexs, setPageIndexs] = useState([1, 2, 3]);
 
   const { articles, isFetchingArticles, totalRecords } = articleState;
+
+  // this is hard code. Cuz, API doesn't return totalRecords
   const maxPage = Math.ceil((totalRecords || 53) / PAGE_LIMIT);
 
-  // this is for no delay for first render
+  // this is to prevent delay for first render
   const isFirstRender = useRef(true);
 
   const fetchArticlesCallback = useCallback(() => {
@@ -61,28 +63,31 @@ function Articles() {
         <SearchInput value={searchTerm} onChange={handleSearchChanged} />
       </div>
 
-      {isFetchingArticles ? (
-        <div className="text-center">
-          <Spinner />
-        </div>
-      ) : (
-        <>
+      <div className="list">
+        {isFetchingArticles ? (
+          <div className="text-center">
+            <Spinner />
+          </div>
+        ) : (
           <ul className="list-unstyled">
             {articles.map(article => (
               <ArticleItem key={article.id} article={article} />
             ))}
           </ul>
-          <div className="d-flex justify-content-end">
-            <PaginationBox
-              onPageIndexChanged={handlePageChanged}
-              currentPageIndex={page}
-              hasNext={page < maxPage}
-              hasPrev={page > 1}
-              maxPage={maxPage}
-              pageIndexs={pageIndexs}
-            />
-          </div>
-        </>
+        )}
+      </div>
+
+      {articles.length > 0 && (
+        <div className="d-flex justify-content-end">
+          <PaginationBox
+            onPageIndexChanged={handlePageChanged}
+            currentPageIndex={page}
+            hasNext={page < maxPage}
+            hasPrev={page > 1}
+            maxPage={maxPage}
+            pageIndexs={pageIndexs}
+          />
+        </div>
       )}
     </div>
   );

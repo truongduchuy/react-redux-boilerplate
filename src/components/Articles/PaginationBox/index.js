@@ -17,7 +17,7 @@ function PaginationBox({ onPageIndexChanged, pageIndexs, currentPageIndex, hasNe
   };
 
   const isDisablePrev = useMemo(() => !hasPrev || pageIndexs[0] === 1, [hasPrev]);
-  const isDisableNext = useMemo(() => !hasNext || pageIndexs[2] === maxPage, [hasPrev]);
+  const isDisableNext = useMemo(() => !hasNext || pageIndexs[2] === maxPage, [hasNext]);
 
   const activeNumberClass = pageIndex => (pageIndex === currentPageIndex ? 'active' : '');
   const disabledNumberClass = pageIndex => (pageIndex > maxPage ? 'disabled' : '');
